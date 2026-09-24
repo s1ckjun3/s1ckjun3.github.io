@@ -9,46 +9,18 @@
 
   :root{
     color-scheme: light;
-    --navy: #131b33;
-    --navy-2: #1d2848;
+    --navy: #202867;
+    --navy-2: #202867;
     --bg: #f5f5f2;
     --card: #ffffff;
     --line: #e2e1da;
     --ink: #14161b;
     --dim: #666c78;
-    --blue: #2d55e0;
+    --blue: #202867;
     --blue-ink: #ffffff;
     --coral: #e8432e;
-    --font-body: 'Manrope', -apple-system, 'Segoe UI', sans-serif;
-    --font-mono: 'IBM Plex Mono', 'SF Mono', Menlo, monospace;
-  }
-  @media (prefers-color-scheme: dark){
-    :root:not([data-theme="light"]){
-      color-scheme: dark;
-      --navy: #0c1020;
-      --navy-2: #151c33;
-      --bg: #14161b;
-      --card: #1c1f27;
-      --line: #2e323c;
-      --ink: #edece7;
-      --dim: #9aa0ac;
-      --blue: #6685ff;
-      --blue-ink: #0c1020;
-      --coral: #ff6a53;
-    }
-  }
-  :root[data-theme="dark"]{
-    color-scheme: dark;
-    --navy: #0c1020;
-    --navy-2: #151c33;
-    --bg: #14161b;
-    --card: #1c1f27;
-    --line: #2e323c;
-    --ink: #edece7;
-    --dim: #9aa0ac;
-    --blue: #6685ff;
-    --blue-ink: #0c1020;
-    --coral: #ff6a53;
+    --font-body: BlinkMacSystemFont, -apple-system, Roboto, Ubuntu, "Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    --font-mono: BlinkMacSystemFont, -apple-system, Roboto, Ubuntu, "Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif;
   }
 
   *{ box-sizing:border-box; }
@@ -74,7 +46,7 @@
 
   /* ---------- NAV ---------- */
   nav{
-    background: var(--navy);
+    background: #202867;
     padding-block: 16px;
     padding-top: calc(16px + env(safe-area-inset-top, 0px));
   }
@@ -92,8 +64,10 @@
     background: var(--blue);
     display:flex; align-items:center; justify-content:center;
     flex-shrink:0;
+    overflow:hidden;
   }
   .brand .mark svg{ width:11px; height:11px; fill:var(--blue-ink); margin-left:1px; }
+  .brand .mark img{ width:100%; height:100%; object-fit:cover; }
   .navlinks{ display:flex; align-items:center; gap:26px; }
   .navlinks a{
     color:#c7cbdb; text-decoration:none; font-size:.9rem; font-weight:500;
@@ -123,6 +97,58 @@
   .factline .k{ color: var(--dim); }
   .factline .v{ font-weight:700; }
 
+  /* section heading with a trailing rule, e.g. "In Ihrer Nähe" */
+  .event-listing-headline.with-line{
+    display:flex; align-items:center; gap:14px;
+    font-size:1.05rem; font-weight:800;
+    margin: 8px 0 16px;
+  }
+  .event-listing-headline.with-line .line{
+    flex:1; height:1px; background:var(--line);
+  }
+
+  /* concert-date style field */
+  .date-card{
+    display:grid; grid-template-columns: 84px 1fr auto;
+    gap:18px; align-items:center;
+    background: var(--card); border:1px solid var(--line); border-radius:10px;
+    padding: 16px 20px;
+    margin-bottom: 24px;
+  }
+  .date-card .date-block{ text-align:center; border-right:1px solid var(--line); padding-right:16px; }
+  .date-card .date-block .day{ font-weight:800; font-size:1.9rem; color:var(--blue); line-height:1; }
+  .date-card .date-block .month{
+    font-family:var(--font-mono); font-size:.68rem; letter-spacing:.05em; text-transform:uppercase;
+    color:var(--dim); margin-top:3px;
+  }
+  .date-card .date-block .time{
+    font-family:var(--font-mono); font-size:.66rem; color:var(--dim); margin-top:2px;
+  }
+  .date-card .date-info .city{ font-weight:800; font-size:1.05rem; letter-spacing:.02em; }
+  .date-card .date-info .artist{ font-size:.92rem; color:var(--ink); margin-top:3px; font-weight:600; }
+  .date-card .date-info .venue{ font-size:.85rem; color:var(--dim); margin-top:1px; }
+  .date-card .date-cta{
+    display:flex; flex-direction:column; align-items:flex-end; gap:8px;
+  }
+  .date-card .date-cta .badge{
+    font-family:var(--font-mono); font-size:.72rem; font-weight:700; letter-spacing:.05em; text-transform:uppercase;
+    color:var(--blue);
+  }
+  .date-card .date-cta .btn-small{
+    background: var(--blue); color:var(--blue-ink); font-weight:700; font-size:.85rem;
+    padding:9px 18px; border-radius:20px; text-decoration:none; white-space:nowrap;
+  }
+  .date-card .date-cta .btn-small:hover{ opacity:.9; }
+  @media (max-width:600px){
+    .date-card{ grid-template-columns: 60px 1fr; }
+    .date-card .date-block{ padding-right:10px; }
+    .date-card .date-block .day{ font-size:1.5rem; }
+    .date-card .date-cta{
+      grid-column: 1 / -1; flex-direction:row; align-items:center; justify-content:space-between;
+      margin-top:8px;
+    }
+  }
+
   .cta-row{ display:flex; gap:14px; flex-wrap:wrap; }
   .btn{
     font-weight:700; font-size:.95rem;
@@ -141,6 +167,8 @@
     border:1px solid var(--line);
     display:flex; align-items:center; justify-content:center;
   }
+  .photo .mark{ position:absolute; inset:0; }
+  .photo .mark img{ width:100%; height:100%; object-fit:cover; }
   .photo .mono{
     font-family:var(--font-mono); font-size:5rem; color: color-mix(in srgb, var(--ink) 14%, transparent);
     font-weight:600;
@@ -156,6 +184,7 @@
     background: var(--card); border:1px solid var(--line);
     display:flex; align-items:center; justify-content:center;
     cursor:pointer; text-decoration:none;
+    z-index:2;
   }
   .play-btn svg{ width:18px; height:18px; fill:var(--ink); margin-left:2px; }
   .heart{
@@ -164,6 +193,7 @@
     background: var(--card); border:1px solid var(--line);
     display:flex; align-items:center; justify-content:center;
     cursor:pointer;
+    z-index:2;
   }
   .heart svg{ width:17px; height:17px; fill:none; stroke:var(--ink); stroke-width:1.8; }
   .heart.on svg{ fill: var(--coral); stroke: var(--coral); }
@@ -210,6 +240,42 @@
   .status .link{ display:block; font-weight:500; color:var(--blue); text-decoration:none; font-size:.82rem; margin-top:4px; }
   .status .link:hover{ text-decoration:underline; }
 
+  /* skill bubbles */
+  .bubble-cloud{
+    display:flex; flex-wrap:wrap; justify-content:center; align-items:center;
+    gap: 12px 14px;
+    padding-block: 6px 10px;
+  }
+  .bubble{
+    padding: 10px 20px;
+    border-radius: 999px;
+    font-weight:700;
+    font-size: .92rem;
+    border:1px solid var(--line);
+    background: var(--card);
+    color: var(--ink);
+    white-space:nowrap;
+  }
+  .bubble.a{
+    background: color-mix(in srgb, var(--blue) 9%, var(--card));
+    color: var(--blue);
+    border-color: color-mix(in srgb, var(--blue) 28%, var(--line));
+  }
+  .bubble.b{
+    background: color-mix(in srgb, var(--blue) 10%, var(--card));
+    color: var(--blue);
+    border-color: color-mix(in srgb, var(--blue) 28%, var(--line));
+  }
+  .bubble.lg{
+    font-size: 1.1rem;
+    font-weight:800;
+    padding: 13px 26px;
+  }
+  @media (max-width:600px){
+    .bubble{ font-size:.85rem; padding:9px 16px; }
+    .bubble.lg{ font-size:1rem; padding:11px 20px; }
+  }
+
   /* bio */
   .bio{ display:grid; grid-template-columns:1.4fr 1fr; gap:40px; align-items:start; }
   @media (max-width:760px){ .bio{ grid-template-columns:1fr; } }
@@ -243,13 +309,56 @@
     position:absolute; left:16px; bottom:14px; font-family:var(--font-mono); font-size:.7rem;
     letter-spacing:.06em; text-transform:uppercase; color:var(--dim);
   }
+  .gallery{ 
+  display:grid; 
+  grid-template-columns:repeat(3,1fr); 
+  gap:10px; 
+  margin-top:10px; 
+}
+
+.gallery .tile{
+  color: black;
+  aspect-ratio:4/3; 
+  border-radius:8px; 
+  border:1px solid var(--line);
+  background: repeating-linear-gradient(45deg, var(--card) 0 10px, var(--line) 10px 20px);
+  display:flex; 
+  align-items:flex-end; 
+  padding:8px;
+  overflow:hidden;
+  position:relative;
+  text-decoration:none;
+}
+
+.gallery .tile img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  position:absolute;
+  inset:0;
+}
+
+.gallery .tile span{
+  color: black;
+  font-family:var(--font-mono); 
+  font-size:.62rem; 
+  color:var(--ink); 
+  text-transform:uppercase;
+  position:relative;
+  z-index:1;
+}
+
+@media (max-width:560px){ 
+  .gallery{ grid-template-columns:repeat(2,1fr);}
+}
+
   .gallery{ display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-top:10px; }
   .gallery .tile{
     aspect-ratio:4/3; border-radius:8px; border:1px solid var(--line);
     background: repeating-linear-gradient(45deg, var(--card) 0 10px, var(--line) 10px 20px);
     display:flex; align-items:flex-end; padding:8px;
   }
-  .gallery .tile span{ font-family:var(--font-mono); font-size:.62rem; color:var(--dim); text-transform:uppercase; }
+  .gallery .tile span{ font-family:var(--font-mono); font-size:.62rem; color:var(--ink); text-transform:uppercase; }
   @media (max-width:560px){ .gallery{ grid-template-columns:repeat(2,1fr);} }
 
   /* trust badges */
@@ -285,12 +394,49 @@
   }
   .copybtn:hover{ opacity:.9; }
 
+  .notice{
+    display:flex; gap:12px; align-items:flex-start;
+    background: color-mix(in srgb, #f5a623 12%, var(--card));
+    border:1px solid color-mix(in srgb, #f5a623 45%, var(--line));
+    border-radius:10px;
+    padding:16px 18px;
+    margin-top: 6px;
+  }
+  .notice svg{
+    width:19px; height:19px; flex-shrink:0; margin-top:2px;
+    stroke:#a86616; fill:none; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round;
+  }
+  .notice p{ margin:0; font-size:.85rem; color:var(--dim); line-height:1.55; }
+  .notice strong{ color:var(--ink); }
+
   footer{
     padding-block: 26px 40px;
     padding-bottom: calc(40px + env(safe-area-inset-bottom, 0px));
     display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap;
     font-family:var(--font-mono); font-size:.72rem; color:var(--dim);
   }
+
+  .gallery {
+    color: black;
+  display: flex;
+  gap: 20px;
+}
+
+.tile {
+  color: black;
+  width: 300px;
+  height: 200px;
+  overflow: hidden;
+  position: relative;
+}
+
+.tile img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
 </style>
 </head>
 <body>
@@ -298,12 +444,14 @@
 <nav>
   <div class="nav-inner">
     <a class="brand" href="#top">
-      <span class="mark"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>
+
       Anna Egger
+
+      <span class="mark"><img src="unnamed.png" alt=""></span>
     </a>
     <div class="navlinks">
       <a href="#stationen">Line-up</a>
-      <a href="#ueber-mich">Über mich</a>
+      <a href="#ueber-mich">Mein persönliches Line-Up</a>
       <a href="#reel">Reel</a>
       <a class="pill" href="#kontakt">Kontakt</a>
     </div>
@@ -315,14 +463,29 @@
   <header class="hero" id="top">
     <div class="hero-grid">
       <div>
-        <p class="eyebrow">Bewerbung · Video &amp; Marketing</p>
+        <p class="eyebrow">Bewerbung</p>
         <h1>Anna Egger</h1>
-        <p class="tagline">Video-Produktion und digitales Marketing unter einem Dach — von der Kamera bis zur Kampagnen-Auswertung.</p>
+        <p class="tagline">Hiermit bewerbe ich mich als Werkstudent:in Content Online Marketing bei CTS Eventim Austria.</p>
 
-        <div class="factline">
-          <div><span class="k">Verfügbar: </span><span class="v">Sofort</span></div>
-          <div><span class="k">Rolle: </span><span class="v">Video &amp; Marketing</span></div>
-          <div><span class="k">Standort: </span><span class="v">Wien</span></div>
+        <h2 class="event-listing-headline with-line">In Ihrer Nähe
+<span class="line"></span>
+</h2>
+
+        <div class="date-card">
+          <div class="date-block">
+            <div class="day">24</div>
+            <div class="month">Sep 2026</div>
+            <div class="time">Sofort</div>
+          </div>
+          <div class="date-info">
+            <div class="city">Wien</div>
+            <div class="artist">Anna Egger</div>
+            <div class="venue">Werkstudentin · Content Online Marketing</div>
+          </div>
+          <div class="date-cta">
+            <span class="badge">Verfügbar</span>
+            <a class="btn-small" href="#kontakt">Kontakt</a>
+          </div>
         </div>
 
         <div class="cta-row">
@@ -333,24 +496,22 @@
 
       <div class="hero-visual">
         <div class="photo">
-          <span class="mono">AE</span>
+          <span class="mark"><img src="photo_2026-09-24_10-11-48.jpg" alt=""></span>
           <a class="play-btn" href="#reel" aria-label="Zum Showreel">
             <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
           </a>
           <button class="heart" id="heart-btn" type="button" aria-label="Merken">
             <svg viewBox="0 0 24 24"><path d="M12 21s-7.5-4.9-10-9.1C.3 8.6 1.7 5 5.1 4.2 7.4 3.7 9.8 4.8 12 7.2c2.2-2.4 4.6-3.5 6.9-3 3.4.8 4.8 4.4 3.1 7.7-2.5 4.2-10 9.1-10 9.1z"/></svg>
           </button>
-          <span class="caption">Foto folgt</span>
         </div>
       </div>
     </div>
-  </header>
 
   <section id="stationen">
     <div class="section-head">
       <div>
-        <p class="eyebrow">Line-up</p>
-        <h2>Meine Stationen</h2>
+        <p class="eyebrow">Stationen</p>
+        <h2>Mein persönliches Line-Up</h2>
       </div>
       <span class="count">4 Stationen</span>
     </div>
@@ -359,34 +520,34 @@
       <div class="station">
         <div class="num">01</div>
         <div>
-          <h3>Videoproduktion &amp; Schnitt</h3>
-          <p>Kamera, Schnitt und Motion Graphics aus dem Medientechnik-Studium — von der Idee bis zum fertigen Cut.</p>
+          <h3>Mediengestaltung</h3>
+          <p>Umfangreiche Kenntnisse in der Mediengestaltung, von Video und Foto bis hin zu Audio, aus meinem Medientechnik-Studium.</p>
         </div>
-        <div class="tag">Praxis</div>
+        <div class="tag">Studium</div>
       </div>
       <div class="station">
         <div class="num">02</div>
         <div>
-          <h3>Digitales Marketing</h3>
-          <p>Berufserfahrung im digitalen Werbebereich: Kampagnen aufsetzen, steuern und mit Kennzahlen auswerten.</p>
+          <h3>Logisches Denken & technisches Verständnis</h3>
+          <p>Ergänzendes Studium der Informatik mit einem zusätzlichen technischen Blick auf Medien.</p>
         </div>
-        <div class="tag">Kampagnen</div>
+        <div class="tag">Studium</div>
       </div>
       <div class="station">
         <div class="num">03</div>
         <div>
-          <h3>Content Creation</h3>
-          <p>Eigene Kurzvideo-Produktionen für TikTok — Konzept, Dreh und Schnitt in einer Hand.</p>
+          <h3>Digitales Marketing</h3>
+          <p>Erfahrung in der Kampagnenaufbereitung, im Monitoring und Reporting sowie darin, Kennzahlentrends zu erkennen und entsprechend zu handeln.</p>
         </div>
-        <div class="tag">Social</div>
+        <div class="tag">Berufserfahrung</div>
       </div>
       <div class="station">
         <div class="num">04</div>
         <div>
-          <h3>Technisches Fundament</h3>
-          <p>Studium der Medientechnik als Basis für Kamera, Schnittsoftware und Motion-Design-Tools.</p>
+          <h3>Allrounderin & für Neues bereit</h3>
+          <p>Kreativer Kopf mit technischem Verständnis – immer offen für neue Herausforderungen.</p>
         </div>
-        <div class="tag">Studium</div>
+        <div class="tag">Skills</div>
       </div>
     </div>
 
@@ -395,8 +556,8 @@
       <div class="station upcoming">
         <div class="num">→</div>
         <div>
-          <h3>Crownbeam</h3>
-          <p>Video &amp; Marketing Position — diese Seite ist Teil der Bewerbung dafür.</p>
+          <h3>Eventim...?</h3>
+          <p>Werkstudent:in Content Online Marketing — diese Seite ist Teil der Bewerbung dafür</p>
         </div>
         <div class="status">Bewerbung läuft
           <a class="link" href="#kontakt">Kontakt aufnehmen</a>
@@ -405,24 +566,43 @@
     </div>
   </section>
 
+  <section id="skills">
+    <div class="section-head" style="justify-content:center; text-align:center; flex-direction:column;">
+      <p class="eyebrow">Skills</p>
+      <h2>Auf einen Blick</h2>
+    </div>
+    <div class="bubble-cloud">
+      <span class="bubble a lg">Videoproduktion</span>
+      <span class="bubble b">Eigenständig</span>
+      <span class="bubble a">Adobe Premiere Pro &amp; Adobe Photoshop</span>
+      <span class="bubble b lg">CMS-Systeme</span>
+      <span class="bubble a">Kennzahlen &amp; Reporting</span>
+      <span class="bubble b">Hands-On-Mentalität</span>
+      <span class="bubble a lg">Analytisches Denken</span>
+      <span class="bubble b">Sprachliches Talent</span>
+      <span class="bubble a">Programmieren</span>
+      <span class="bubble b">Kreativität</span>
+    </div>
+  </section>
+
   <section id="ueber-mich">
     <div class="section-head">
       <div>
         <p class="eyebrow">Programmheft</p>
-        <h2>Über mich</h2>
+        <h2>Über dieses Event</h2>
       </div>
     </div>
     <div class="bio">
       <div>
-        <p><strong>Anna Egger</strong> verbindet zwei Bereiche: die technische Seite der Videoproduktion und die strategische Seite des digitalen Marketings. Während des Medientechnik-Studiums stand vor allem die Praxis im Vordergrund — Kamera, Schnitt und Motion Graphics wurden nicht nur gelernt, sondern in eigenen Projekten immer wieder angewendet.</p>
+        <p>Ich bin Anna, studiere aktuell Medientechnik und Informatik und suche nach einer kreativen Arbeitsstelle. Gleichzeitig bringe ich Berufserfahrung im Online-Marketing mit, kenne mich mit KPIs aus und habe bereits viele Kampagnen konzipiert, umgesetzt, überwacht und reportet. Ich bin ein offener Mensch, mag den Austausch mit anderen und lerne gerne Neues dazu. Dabei lege ich großen Wert auf gutes Teamwork und Kommunikation.</p>
         <details class="more">
           <summary>Mehr anzeigen</summary>
           <div class="more-body">
-            <p>Parallel dazu bringt sie berufliche Erfahrung im digitalen Werbebereich mit: Kampagnen planen, umsetzen und anhand von Kennzahlen bewerten. Privat entstehen regelmäßig Kurzvideos für TikTok — ein Ort, an dem sich Konzept, Dreh, Schnitt und ein Gespür für Reichweite in kurzer Zeit beweisen müssen.</p>
+            <p>Das Fach Medientechnik beinhaltet auch Live-Veranstaltungen. Ich bin eine leidenschaftliche Konzertgängerin, stehe hinter Live-Kultur und wäre gerne Teil des Systems, das diese Erlebnisse möglich macht.</p>
           </div>
         </details>
       </div>
-      <div class="pull">„Ein gutes Video ist eine Kampagne mit Timing.“</div>
+      <div class="pull">Konzert- und Live-Veranstaltungskultur liegt mir am Herzen.</div>
     </div>
   </section>
 
@@ -430,41 +610,59 @@
     <div class="section-head">
       <div>
         <p class="eyebrow">Trailer</p>
-        <h2>Showreel</h2>
+        <h2>Eindrücke von diesem Event</h2>
       </div>
     </div>
-    <div class="reel">
-      <a class="play-btn" href="#reel" aria-label="Showreel abspielen" style="position:relative; top:auto; left:auto; transform:none;">
-        <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-      </a>
-      <span class="label">Platzhalter — hier kommt dein Showreel rein</span>
-    </div>
+    <div class="bio">
+  <a class="text"
+     href="https://creative-lyric-153.notion.site/Anna-Egger-Video-Portfolio-39df50b67f7b8017921dfb98a05e9109"
+     target="_blank"
+     rel="noopener noreferrer">
+    Hier geht es zu meinen umgesetzten Videoprojekten.
+  </a>
+</div>
+<br>
+
     <div class="gallery">
-      <div class="tile"><span>Foto folgt</span></div>
-      <div class="tile"><span>Foto folgt</span></div>
-      <div class="tile"><span>Foto folgt</span></div>
-    </div>
+
+  <a class="tile" href="https://www.tiktok.com/@krankerjuni/video/7604564480743296278" target="_blank" rel="noopener noreferrer">
+    <span>TikTok!</span>
+    <img src="thumbnail3.png" alt="TikTok Video">
+  </a>
+
+  <a class="tile" href="https://youtu.be/eXI42kqEFWo" target="_blank" rel="noopener noreferrer">
+    <span>Video über eine Wanderung</span>
+    <img src="thumbnail1.png" alt="Youtube Video">
+  </a>
+
+  <a class="tile" href="https://youtu.be/p3FKOYiYP_c" target="_blank" rel="noopener noreferrer">
+    <span>Uniprojekt über Müllentsorgungstool</span>
+    <img src="thumbnail2.png" alt="Youtube Video">
+  </a>
+
+</div>
+
   </section>
 
   <section>
     <div class="section-head">
       <div>
         <p class="eyebrow">Ihre Vorteile</p>
-        <h2>Warum es passt</h2>
+        <h2>Warum Sie dieses Event nicht verpassen sollten</h2>
       </div>
     </div>
     <div class="badges">
       <div class="badge">
         <span class="icon"><svg viewBox="0 0 24 24"><path d="M12 3l2.5 5.5L20 9l-4 4 1 6-5-3-5 3 1-6-4-4 5.5-.5z"/></svg></span>
-        <div><h3>Eigenständig</h3><p>Von Konzept bis Cut selbstständig umgesetzt.</p></div>
+        <div><h3>Lern- & hilfsbereit</h3><p>Ich lerne gerne Neues, bin aber gleichzeitig auch froh, wenn ich jemandem weiterhelfen kann.</p></div>
       </div>
       <div class="badge">
         <span class="icon"><svg viewBox="0 0 24 24"><path d="M4 19V9m6 10V4m6 15v-7"/></svg></span>
-        <div><h3>Kennzahlen-getrieben</h3><p>Kampagnenerfolg wird gemessen, nicht geraten.</p></div>
+        <div><h3>Sorgfältig</h3><p>Double-Check und Zahlenaffinität gehören für mich einfach dazu.</p></div>
       </div>
       <div class="badge">
         <span class="icon"><svg viewBox="0 0 24 24"><path d="M12 7v5l3.5 2M12 3a9 9 0 100 18 9 9 0 000-18z"/></svg></span>
-        <div><h3>Schnell einsatzbereit</h3><p>Ab sofort verfügbar, 20h/Woche.</p></div>
+        <div><h3>Schnell einsatzbereit</h3><p>Ab sofort verfügbar, 20h/Woche</p></div>
       </div>
     </div>
   </section>
@@ -472,8 +670,8 @@
   <section id="kontakt" style="border-top:none;">
     <div class="contact-box">
       <div>
-        <h2>Direkt Kontakt aufnehmen</h2>
-        <p>Interesse an einem Gespräch für die Video-&amp;-Marketing-Rolle bei Crownbeam? Ich freue mich, von dir zu hören.</p>
+        <h2>Kontakt aufnehmen</h2>
+        <p>Ich freue mich über ein persönliches Gespräch, um mehr von mir zu erzählen.</p>
       </div>
       <div>
         <div class="email-box" id="email-text">anna.egger01@gmail.com</div>
@@ -482,9 +680,14 @@
     </div>
   </section>
 
+  <div class="notice">
+    <svg viewBox="0 0 24 24"><path d="M12 9v4m0 4h.01M10.29 3.86l-8.18 14.18A2 2 0 0 0 3.82 21h16.36a2 2 0 0 0 1.71-3.03L13.71 3.86a2 2 0 0 0-3.42 0z"/></svg>
+    <p><strong>Hinweis:</strong> Das Design dieser Seite orientiert sich bewusst am Erscheinungsbild von oeticket / CTS&nbsp;Eventim. Es wurde ausschließlich für diese Bewerbung nachempfunden — alle Rechte am Original-Design liegen weiterhin bei CTS Eventim Austria bzw. der EVENTIM Media House GmbH. Diese Seite ist kein offizielles Eventim-Produkt.</p>
+  </div>
+
   <footer>
-    <span>Kreatives Bewerbungsprojekt von Anna Egger</span>
-    <span>© 2026 — im Line-up-Look gestaltet</span>
+    <span>Kreatives Bewerbungsprojekt von Anna Michaela Egger</span>
+    <span>© 2026</span>
   </footer>
 
 </div>
