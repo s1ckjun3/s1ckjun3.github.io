@@ -1,0 +1,528 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Anna Egger Live</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
+
+  :root{
+    color-scheme: light;
+    --navy: #131b33;
+    --navy-2: #1d2848;
+    --bg: #f5f5f2;
+    --card: #ffffff;
+    --line: #e2e1da;
+    --ink: #14161b;
+    --dim: #666c78;
+    --blue: #2d55e0;
+    --blue-ink: #ffffff;
+    --coral: #e8432e;
+    --font-body: 'Manrope', -apple-system, 'Segoe UI', sans-serif;
+    --font-mono: 'IBM Plex Mono', 'SF Mono', Menlo, monospace;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      color-scheme: dark;
+      --navy: #0c1020;
+      --navy-2: #151c33;
+      --bg: #14161b;
+      --card: #1c1f27;
+      --line: #2e323c;
+      --ink: #edece7;
+      --dim: #9aa0ac;
+      --blue: #6685ff;
+      --blue-ink: #0c1020;
+      --coral: #ff6a53;
+    }
+  }
+  :root[data-theme="dark"]{
+    color-scheme: dark;
+    --navy: #0c1020;
+    --navy-2: #151c33;
+    --bg: #14161b;
+    --card: #1c1f27;
+    --line: #2e323c;
+    --ink: #edece7;
+    --dim: #9aa0ac;
+    --blue: #6685ff;
+    --blue-ink: #0c1020;
+    --coral: #ff6a53;
+  }
+
+  *{ box-sizing:border-box; }
+  body{
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font-body);
+    line-height: 1.55;
+    margin:0;
+  }
+  a{ color: inherit; }
+  img{ max-width:100%; }
+  h1,h2,h3{ font-family: var(--font-body); letter-spacing:-.01em; text-wrap:balance; margin:0; }
+  .wrap{ max-width: 1040px; margin-inline:auto; padding-inline: 20px; }
+  .eyebrow{
+    font-family: var(--font-mono);
+    font-size: .7rem;
+    letter-spacing:.14em;
+    text-transform: uppercase;
+    color: var(--blue);
+    margin: 0 0 8px;
+  }
+
+  /* ---------- NAV ---------- */
+  nav{
+    background: var(--navy);
+    padding-block: 16px;
+    padding-top: calc(16px + env(safe-area-inset-top, 0px));
+  }
+  .nav-inner{
+    max-width:1040px; margin-inline:auto; padding-inline:20px;
+    display:flex; align-items:center; justify-content:space-between; gap:16px;
+  }
+  .brand{
+    display:flex; align-items:center; gap:9px;
+    color:#f4f3ee; font-weight:800; font-size:1.05rem; letter-spacing:-.01em;
+    text-decoration:none;
+  }
+  .brand .mark{
+    width:24px; height:24px; border-radius:50%;
+    background: var(--blue);
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+  }
+  .brand .mark svg{ width:11px; height:11px; fill:var(--blue-ink); margin-left:1px; }
+  .navlinks{ display:flex; align-items:center; gap:26px; }
+  .navlinks a{
+    color:#c7cbdb; text-decoration:none; font-size:.9rem; font-weight:500;
+  }
+  .navlinks a:hover{ color:#fff; }
+  .navlinks .pill{
+    background: var(--blue); color:var(--blue-ink); font-weight:700;
+    padding: 9px 18px; border-radius:22px; font-size:.85rem;
+  }
+  .navlinks .pill:hover{ opacity:.9; color:var(--blue-ink); }
+  @media (max-width:640px){
+    .navlinks a:not(.pill){ display:none; }
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{ padding-block: 44px 40px; }
+  .hero-grid{
+    display:grid; grid-template-columns: 1.3fr 1fr; gap:44px; align-items:start;
+  }
+  @media (max-width:760px){ .hero-grid{ grid-template-columns:1fr; } }
+
+  .hero h1{ font-size: clamp(2.4rem, 6vw, 3.6rem); font-weight:800; margin-bottom:14px; }
+  .hero .tagline{ color: var(--dim); font-size: 1.1rem; max-width:52ch; margin-bottom:22px; }
+
+  .factline{ display:flex; flex-wrap:wrap; gap: 8px 28px; margin-bottom:26px; }
+  .factline div{ font-size:.95rem; }
+  .factline .k{ color: var(--dim); }
+  .factline .v{ font-weight:700; }
+
+  .cta-row{ display:flex; gap:14px; flex-wrap:wrap; }
+  .btn{
+    font-weight:700; font-size:.95rem;
+    background: var(--blue); color: var(--blue-ink);
+    border:none; padding:14px 26px; border-radius:26px;
+    cursor:pointer; text-decoration:none; display:inline-flex; align-items:center; gap:8px;
+  }
+  .btn:hover{ opacity:.92; }
+  .btn.ghost{ background:transparent; color:var(--ink); border:1px solid var(--line); }
+  .btn.ghost:hover{ border-color:var(--blue); color:var(--blue); }
+
+  .hero-visual{ position:relative; }
+  .photo{
+    aspect-ratio: 4/5; border-radius:10px; overflow:hidden; position:relative;
+    background: repeating-linear-gradient(135deg, var(--card) 0 16px, var(--line) 16px 32px);
+    border:1px solid var(--line);
+    display:flex; align-items:center; justify-content:center;
+  }
+  .photo .mono{
+    font-family:var(--font-mono); font-size:5rem; color: color-mix(in srgb, var(--ink) 14%, transparent);
+    font-weight:600;
+  }
+  .photo .caption{
+    position:absolute; left:14px; bottom:14px; right:14px;
+    font-family:var(--font-mono); font-size:.68rem; letter-spacing:.06em; text-transform:uppercase;
+    color: var(--dim);
+  }
+  .play-btn{
+    position:absolute; left:50%; top:50%; transform:translate(-50%,-50%);
+    width:56px; height:56px; border-radius:50%;
+    background: var(--card); border:1px solid var(--line);
+    display:flex; align-items:center; justify-content:center;
+    cursor:pointer; text-decoration:none;
+  }
+  .play-btn svg{ width:18px; height:18px; fill:var(--ink); margin-left:2px; }
+  .heart{
+    position:absolute; top:12px; right:12px;
+    width:38px; height:38px; border-radius:50%;
+    background: var(--card); border:1px solid var(--line);
+    display:flex; align-items:center; justify-content:center;
+    cursor:pointer;
+  }
+  .heart svg{ width:17px; height:17px; fill:none; stroke:var(--ink); stroke-width:1.8; }
+  .heart.on svg{ fill: var(--coral); stroke: var(--coral); }
+
+  /* ---------- SECTIONS ---------- */
+  section{ padding-block: 30px; border-top:1px solid var(--line); }
+  .section-head{
+    display:flex; align-items:baseline; justify-content:space-between; gap:16px; margin-bottom:22px; flex-wrap:wrap;
+  }
+  .section-head h2{ font-size: clamp(1.5rem, 4vw, 1.9rem); font-weight:800; }
+  .count{ font-family:var(--font-mono); font-size:.8rem; color:var(--dim); }
+
+  /* stations list */
+  .stations{ display:flex; flex-direction:column; gap:10px; }
+  .station{
+    display:grid; grid-template-columns: 64px 1fr auto;
+    gap:18px; align-items:center;
+    background: var(--card); border:1px solid var(--line); border-radius:10px;
+    padding: 18px 20px;
+  }
+  .station .num{
+    font-family:var(--font-mono); font-weight:700; font-size:1.6rem; color: var(--blue);
+  }
+  .station h3{ font-size:1.05rem; font-weight:800; margin-bottom:4px; }
+  .station p{ margin:0; color:var(--dim); font-size:.92rem; max-width:52ch; }
+  .tag{
+    font-family: var(--font-mono); font-size:.72rem; letter-spacing:.06em; text-transform:uppercase;
+    background: color-mix(in srgb, var(--coral) 14%, transparent);
+    color: var(--coral);
+    padding: 6px 12px; border-radius:20px; white-space:nowrap; font-weight:600;
+  }
+  @media (max-width:600px){
+    .station{ grid-template-columns: 40px 1fr; }
+    .station .tag{ grid-column: 2; justify-self:start; }
+  }
+
+  .upcoming-label{
+    font-family:var(--font-mono); font-size:.72rem; letter-spacing:.12em; text-transform:uppercase;
+    color:var(--dim); margin: 22px 0 10px;
+  }
+  .station.upcoming{ border-style:dashed; }
+  .station.upcoming .num{ color:var(--dim); }
+  .status{ font-size:.85rem; font-weight:700; color:var(--coral); text-align:right; }
+  .status .link{ display:block; font-weight:500; color:var(--blue); text-decoration:none; font-size:.82rem; margin-top:4px; }
+  .status .link:hover{ text-decoration:underline; }
+
+  /* bio */
+  .bio{ display:grid; grid-template-columns:1.4fr 1fr; gap:40px; align-items:start; }
+  @media (max-width:760px){ .bio{ grid-template-columns:1fr; } }
+  .bio p{ color:var(--dim); font-size:1rem; max-width:60ch; }
+  .bio p + p{ margin-top:14px; }
+  .bio strong{ color:var(--ink); }
+  details.more{ margin-top: 4px; }
+  details.more summary{
+    list-style:none; cursor:pointer; color:var(--blue); font-weight:700; font-size:.9rem;
+    display:inline-flex; align-items:center; gap:6px;
+  }
+  details.more summary::-webkit-details-marker{ display:none; }
+  details.more summary::after{ content:"▾"; font-size:.7rem; transition: transform .15s ease; }
+  details.more[open] summary::after{ transform: rotate(180deg); }
+  details.more .more-body{ padding-top:12px; }
+
+  .pull{
+    border-left:3px solid var(--blue);
+    padding: 2px 0 2px 18px;
+    font-size:1.3rem; font-weight:700; line-height:1.25;
+  }
+
+  /* showreel */
+  .reel{
+    aspect-ratio:16/9; border-radius:10px; border:1px solid var(--line);
+    background: repeating-linear-gradient(135deg, var(--card) 0 16px, var(--line) 16px 32px);
+    position:relative; display:flex; align-items:center; justify-content:center;
+    overflow:hidden;
+  }
+  .reel .label{
+    position:absolute; left:16px; bottom:14px; font-family:var(--font-mono); font-size:.7rem;
+    letter-spacing:.06em; text-transform:uppercase; color:var(--dim);
+  }
+  .gallery{ display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-top:10px; }
+  .gallery .tile{
+    aspect-ratio:4/3; border-radius:8px; border:1px solid var(--line);
+    background: repeating-linear-gradient(45deg, var(--card) 0 10px, var(--line) 10px 20px);
+    display:flex; align-items:flex-end; padding:8px;
+  }
+  .gallery .tile span{ font-family:var(--font-mono); font-size:.62rem; color:var(--dim); text-transform:uppercase; }
+  @media (max-width:560px){ .gallery{ grid-template-columns:repeat(2,1fr);} }
+
+  /* trust badges */
+  .badges{ display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
+  @media (max-width:700px){ .badges{ grid-template-columns:1fr; } }
+  .badge{ display:flex; gap:14px; align-items:flex-start; }
+  .badge .icon{
+    width:38px; height:38px; border-radius:50%; background: color-mix(in srgb, var(--blue) 12%, transparent);
+    display:flex; align-items:center; justify-content:center; flex-shrink:0;
+  }
+  .badge .icon svg{ width:17px; height:17px; stroke:var(--blue); fill:none; stroke-width:1.8; }
+  .badge h3{ font-size:.95rem; font-weight:800; margin-bottom:3px; }
+  .badge p{ margin:0; color:var(--dim); font-size:.86rem; }
+
+  /* contact box */
+  .contact-box{
+    background: var(--navy); color:#f4f3ee; border-radius:14px; padding: 34px;
+    display:grid; grid-template-columns:1.3fr 1fr; gap:30px; align-items:center;
+  }
+  @media (max-width:700px){ .contact-box{ grid-template-columns:1fr; } }
+  .contact-box h2{ color:#fff; font-size:1.6rem; margin-bottom:10px; }
+  .contact-box p{ color:#c7cbdb; margin:0; font-size:.95rem; max-width:44ch; }
+  .email-box{
+    display:flex; align-items:center; gap:10px; flex-wrap:wrap;
+    font-family:var(--font-mono); font-size:.92rem;
+    background: rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.18);
+    padding:12px 14px; border-radius:8px; user-select:all;
+  }
+  .copybtn{
+    font-family:var(--font-mono); font-size:.7rem; letter-spacing:.06em; text-transform:uppercase;
+    background: var(--blue); color:var(--blue-ink); border:none;
+    padding:7px 14px; border-radius:16px; cursor:pointer; white-space:nowrap; font-weight:700;
+  }
+  .copybtn:hover{ opacity:.9; }
+
+  footer{
+    padding-block: 26px 40px;
+    padding-bottom: calc(40px + env(safe-area-inset-bottom, 0px));
+    display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap;
+    font-family:var(--font-mono); font-size:.72rem; color:var(--dim);
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a class="brand" href="#top">
+      <span class="mark"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>
+      Anna Egger
+    </a>
+    <div class="navlinks">
+      <a href="#stationen">Line-up</a>
+      <a href="#ueber-mich">Über mich</a>
+      <a href="#reel">Reel</a>
+      <a class="pill" href="#kontakt">Kontakt</a>
+    </div>
+  </div>
+</nav>
+
+<div class="wrap">
+
+  <header class="hero" id="top">
+    <div class="hero-grid">
+      <div>
+        <p class="eyebrow">Bewerbung · Video &amp; Marketing</p>
+        <h1>Anna Egger</h1>
+        <p class="tagline">Video-Produktion und digitales Marketing unter einem Dach — von der Kamera bis zur Kampagnen-Auswertung.</p>
+
+        <div class="factline">
+          <div><span class="k">Verfügbar: </span><span class="v">Sofort</span></div>
+          <div><span class="k">Rolle: </span><span class="v">Video &amp; Marketing</span></div>
+          <div><span class="k">Standort: </span><span class="v">Wien</span></div>
+        </div>
+
+        <div class="cta-row">
+          <a class="btn" href="#stationen">Line-up ansehen</a>
+          <a class="btn ghost" href="#kontakt">Kontakt</a>
+        </div>
+      </div>
+
+      <div class="hero-visual">
+        <div class="photo">
+          <span class="mono">AE</span>
+          <a class="play-btn" href="#reel" aria-label="Zum Showreel">
+            <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+          </a>
+          <button class="heart" id="heart-btn" type="button" aria-label="Merken">
+            <svg viewBox="0 0 24 24"><path d="M12 21s-7.5-4.9-10-9.1C.3 8.6 1.7 5 5.1 4.2 7.4 3.7 9.8 4.8 12 7.2c2.2-2.4 4.6-3.5 6.9-3 3.4.8 4.8 4.4 3.1 7.7-2.5 4.2-10 9.1-10 9.1z"/></svg>
+          </button>
+          <span class="caption">Foto folgt</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section id="stationen">
+    <div class="section-head">
+      <div>
+        <p class="eyebrow">Line-up</p>
+        <h2>Meine Stationen</h2>
+      </div>
+      <span class="count">4 Stationen</span>
+    </div>
+
+    <div class="stations">
+      <div class="station">
+        <div class="num">01</div>
+        <div>
+          <h3>Videoproduktion &amp; Schnitt</h3>
+          <p>Kamera, Schnitt und Motion Graphics aus dem Medientechnik-Studium — von der Idee bis zum fertigen Cut.</p>
+        </div>
+        <div class="tag">Praxis</div>
+      </div>
+      <div class="station">
+        <div class="num">02</div>
+        <div>
+          <h3>Digitales Marketing</h3>
+          <p>Berufserfahrung im digitalen Werbebereich: Kampagnen aufsetzen, steuern und mit Kennzahlen auswerten.</p>
+        </div>
+        <div class="tag">Kampagnen</div>
+      </div>
+      <div class="station">
+        <div class="num">03</div>
+        <div>
+          <h3>Content Creation</h3>
+          <p>Eigene Kurzvideo-Produktionen für TikTok — Konzept, Dreh und Schnitt in einer Hand.</p>
+        </div>
+        <div class="tag">Social</div>
+      </div>
+      <div class="station">
+        <div class="num">04</div>
+        <div>
+          <h3>Technisches Fundament</h3>
+          <p>Studium der Medientechnik als Basis für Kamera, Schnittsoftware und Motion-Design-Tools.</p>
+        </div>
+        <div class="tag">Studium</div>
+      </div>
+    </div>
+
+    <p class="upcoming-label">Demnächst</p>
+    <div class="stations">
+      <div class="station upcoming">
+        <div class="num">→</div>
+        <div>
+          <h3>Crownbeam</h3>
+          <p>Video &amp; Marketing Position — diese Seite ist Teil der Bewerbung dafür.</p>
+        </div>
+        <div class="status">Bewerbung läuft
+          <a class="link" href="#kontakt">Kontakt aufnehmen</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="ueber-mich">
+    <div class="section-head">
+      <div>
+        <p class="eyebrow">Programmheft</p>
+        <h2>Über mich</h2>
+      </div>
+    </div>
+    <div class="bio">
+      <div>
+        <p><strong>Anna Egger</strong> verbindet zwei Bereiche: die technische Seite der Videoproduktion und die strategische Seite des digitalen Marketings. Während des Medientechnik-Studiums stand vor allem die Praxis im Vordergrund — Kamera, Schnitt und Motion Graphics wurden nicht nur gelernt, sondern in eigenen Projekten immer wieder angewendet.</p>
+        <details class="more">
+          <summary>Mehr anzeigen</summary>
+          <div class="more-body">
+            <p>Parallel dazu bringt sie berufliche Erfahrung im digitalen Werbebereich mit: Kampagnen planen, umsetzen und anhand von Kennzahlen bewerten. Privat entstehen regelmäßig Kurzvideos für TikTok — ein Ort, an dem sich Konzept, Dreh, Schnitt und ein Gespür für Reichweite in kurzer Zeit beweisen müssen.</p>
+          </div>
+        </details>
+      </div>
+      <div class="pull">„Ein gutes Video ist eine Kampagne mit Timing.“</div>
+    </div>
+  </section>
+
+  <section id="reel">
+    <div class="section-head">
+      <div>
+        <p class="eyebrow">Trailer</p>
+        <h2>Showreel</h2>
+      </div>
+    </div>
+    <div class="reel">
+      <a class="play-btn" href="#reel" aria-label="Showreel abspielen" style="position:relative; top:auto; left:auto; transform:none;">
+        <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+      </a>
+      <span class="label">Platzhalter — hier kommt dein Showreel rein</span>
+    </div>
+    <div class="gallery">
+      <div class="tile"><span>Foto folgt</span></div>
+      <div class="tile"><span>Foto folgt</span></div>
+      <div class="tile"><span>Foto folgt</span></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <div>
+        <p class="eyebrow">Ihre Vorteile</p>
+        <h2>Warum es passt</h2>
+      </div>
+    </div>
+    <div class="badges">
+      <div class="badge">
+        <span class="icon"><svg viewBox="0 0 24 24"><path d="M12 3l2.5 5.5L20 9l-4 4 1 6-5-3-5 3 1-6-4-4 5.5-.5z"/></svg></span>
+        <div><h3>Eigenständig</h3><p>Von Konzept bis Cut selbstständig umgesetzt.</p></div>
+      </div>
+      <div class="badge">
+        <span class="icon"><svg viewBox="0 0 24 24"><path d="M4 19V9m6 10V4m6 15v-7"/></svg></span>
+        <div><h3>Kennzahlen-getrieben</h3><p>Kampagnenerfolg wird gemessen, nicht geraten.</p></div>
+      </div>
+      <div class="badge">
+        <span class="icon"><svg viewBox="0 0 24 24"><path d="M12 7v5l3.5 2M12 3a9 9 0 100 18 9 9 0 000-18z"/></svg></span>
+        <div><h3>Schnell einsatzbereit</h3><p>Ab sofort verfügbar, 20h/Woche.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="kontakt" style="border-top:none;">
+    <div class="contact-box">
+      <div>
+        <h2>Direkt Kontakt aufnehmen</h2>
+        <p>Interesse an einem Gespräch für die Video-&amp;-Marketing-Rolle bei Crownbeam? Ich freue mich, von dir zu hören.</p>
+      </div>
+      <div>
+        <div class="email-box" id="email-text">anna.egger01@gmail.com</div>
+        <button class="copybtn" id="copy-btn" type="button" style="margin-top:10px;">E-Mail kopieren</button>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <span>Kreatives Bewerbungsprojekt von Anna Egger</span>
+    <span>© 2026 — im Line-up-Look gestaltet</span>
+  </footer>
+
+</div>
+
+<script>
+  (function(){
+    var heart = document.getElementById('heart-btn');
+    if (heart){
+      heart.addEventListener('click', function(){
+        heart.classList.toggle('on');
+      });
+    }
+
+    var btn = document.getElementById('copy-btn');
+    var emailEl = document.getElementById('email-text');
+    if (btn && emailEl){
+      btn.addEventListener('click', function(){
+        var text = emailEl.textContent.trim();
+        function fallbackSelect(){
+          try{
+            var range = document.createRange();
+            range.selectNodeContents(emailEl);
+            var sel = window.getSelection();
+            sel.removeAllRanges();
+            sel.addRange(range);
+          }catch(e){}
+        }
+        if (navigator.clipboard && navigator.clipboard.writeText){
+          navigator.clipboard.writeText(text).then(function(){
+            btn.textContent = 'Kopiert ✓';
+            setTimeout(function(){ btn.textContent = 'E-Mail kopieren'; }, 1800);
+          }).catch(fallbackSelect);
+        } else {
+          fallbackSelect();
+        }
+      });
+    }
+  })();
+</script>
+</body>
+</html>
